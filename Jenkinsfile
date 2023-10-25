@@ -4,13 +4,12 @@ pipeline {
     stages {
         stage('Check') {
             steps {
-                git branch: 'develop',credentialsId:'0-shingo', url:'https://github.com/Spharos-final-project-WOOYANO/Gateway'
+                git branch: 'develop',credentialsId:'jenkins-github-access-token', url:'https://github.com/Spharos-final-project-WOOYANO/Payment'
             }
         }
         stage('Build'){
             steps{
                 sh '''
-                    cd Gateway
                     chmod +x ./gradlew
                     ./gradlew build -x test
                 '''
@@ -19,7 +18,6 @@ pipeline {
         stage('DockerSize'){
             steps {
                 sh '''
-                    cd server
                     docker stop Payment-Service || true
                     docker rm Payment-Service || true
                     docker rmi Payment-Service-Img || true
