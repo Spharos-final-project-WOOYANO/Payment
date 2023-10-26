@@ -18,16 +18,16 @@ pipeline {
         stage('DockerSize'){
             steps {
                 sh '''
-                    docker stop Payment-Service || true
-                    docker rm Payment-Service || true
-                    docker rmi Payment-Service-Img || true
-                    docker build -t Payment-Service-Img:latest .
+                    docker stop payment-service || true
+                    docker rm payment-service || true
+                    docker rmi payment-service-img || true
+                    docker build -t payment-service-img:latest .
                 '''
             }
         }
         stage('Deploy'){
             steps{
-                sh 'docker run -d --name Payment-Service -p 8080:8000 Payment-Service-Img'
+                sh 'docker run -d --name payment-service -p 8007:8000 payment-service-img'
             }
         }
     }
