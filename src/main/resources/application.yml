@@ -3,6 +3,6 @@ server:
 
 spring:
   application:
-    name: PAYMENT-SERVICE
+    name: payment-service
   profiles:
     default: secret
