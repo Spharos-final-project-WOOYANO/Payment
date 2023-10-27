@@ -21,7 +21,7 @@ public class PaymentController {
 
     // 결제완료,취소된 데이터 저장
     @PostMapping("/save")
-    private ResponseEntity<String> savePayment(@RequestBody PaymentRequest paymentRequest) {
+    public ResponseEntity<String> savePayment(@RequestBody PaymentRequest paymentRequest) {
         paymentService.savePayment(paymentRequest);
         return ResponseEntity.ok("결제 데이터 저장");
     }
@@ -29,13 +29,13 @@ public class PaymentController {
 
     // 결제완료,취소 건들의 리스트 조회
     @GetMapping("/list")
-    private List<PaymentResultResponseList> getNormalStatus() {
+    public List<PaymentResultResponseList> getCompletedAndCancelledTransactions() {
         return paymentService.getPaymentsList();
     }
 
     // 정산 완료시 상태 변경
     @PostMapping("/finish-settlement")
-    private void finishSettlement(@RequestBody FinishSettlementRequest finishSettlementRequest) {
+    public void finishSettlement(@RequestBody FinishSettlementRequest finishSettlementRequest) {
         paymentService.finishSettlement(finishSettlementRequest);
     }
 }

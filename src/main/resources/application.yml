@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: PAYMENT-SERVICE
+    name: payment-service
 #  profiles:
 #    default: local
   datasource:
@@ -31,3 +31,10 @@ eureka:
 
 instance:
   instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+kafka:
+  clusters:
+    bootstrap:
+      servers: localhost:9092
+logging:
+  topic: test.topic
