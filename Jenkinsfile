@@ -12,7 +12,7 @@ pipeline {
 		    file(credentialsId:'Kafka-Secret-File', variable: 'kafkaSecret')
 		    ])
 	        {
-		    sh "cp \$secret ./src/main/resources/application-secret.yml"
+		    sh "cp \$kafkaSecret ./src/main/resources/application-secret.yml"
 		}
   	    }
 	}
