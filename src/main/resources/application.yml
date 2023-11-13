@@ -1,12 +1,13 @@
 server:
-  port: 9010
+  port: 0
 
 spring:
   application:
     name: payment-service
 
 profiles:
-    default: secret
+  default: secret
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/payment?serverTimezone=Asia/Seoul
@@ -39,4 +40,3 @@ kafka:
       servers: localhost:9092
 logging:
   topic: test.topic
-
