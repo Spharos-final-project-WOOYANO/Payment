@@ -5,8 +5,8 @@ spring:
   application:
     name: payment-service
 
-profiles:
-  default: secret
+  profiles:
+    default: secret
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
