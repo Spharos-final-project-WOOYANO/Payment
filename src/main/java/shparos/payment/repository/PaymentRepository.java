@@ -1,17 +1,22 @@
 package shparos.payment.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import shparos.payment.domain.Payment;
 import shparos.payment.domain.PaymentStatus;
+import shparos.payment.dto.PaymentRequest;
+import shparos.payment.dto.PaymentResultResponse;
 
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
-    //@Query("select p from Payment p where p.paymentStatus = :paymentStatus")
-    @Query("select p from Payment p where p.paymentStatus = :paymentStatus1 or p.paymentStatus = :paymentStatus2")
-    List<Payment> findByPaymentStatus(@Param("paymentStatus1") PaymentStatus paymentStatus1, @Param("paymentStatus2") PaymentStatus paymentStatus2);
 
-
+    @Query("SELECT new shparos.payment.dto.PaymentResultResponse(p.clientEmail,sum(p.totalAmount)) FROM Payment p WHERE p.approvedAt BETWEEN :startDate AND :endDate group by p.clientEmail")
+    List<PaymentResultResponse> findByApprovedAtAndPaymentStatus(@Param("startDate") LocalDateTime startDate,
+                                                                     @Param("endDate") LocalDateTime endDate);
 }
+
+
+
