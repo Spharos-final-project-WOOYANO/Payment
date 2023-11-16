@@ -22,7 +22,7 @@ pipeline {
                     sh '''
                         pwd
                         chmod +x ./gradlew
-                        ./gradlew build -x test
+                        ./gradlew build
                     '''
 
                 }
@@ -41,7 +41,7 @@ pipeline {
         }
         stage('Deploy'){
             steps{
-                sh 'docker run --network spharos-network -e EUREKA_URL="${EUREKA_URL}" -e KAFKA_URL1="${KAFKA_URL1}" -d --name payment-service payment-service-img'
+                sh 'docker run --restart=always --network spharos-network -e EUREKA_URL="${EUREKA_URL}" -d --name payment-service payment-service-img'
             }
         }
     }
