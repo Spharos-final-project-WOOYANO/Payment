@@ -1,15 +1,18 @@
 package shparos.payment.presentation;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shparos.payment.dto.FinishSettlementRequest;
 import shparos.payment.dto.PaymentRequest;
 import shparos.payment.application.PaymentService;
-import shparos.payment.dto.PaymentResultResponseList;
+import shparos.payment.dto.PaymentResultResponse;
+import shparos.payment.scheduler.PaymentListScheduler;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,6 +21,9 @@ import shparos.payment.dto.PaymentResultResponseList;
 public class PaymentController {
 
     private final PaymentService paymentService;
+    private final PaymentListScheduler paymentListScheduler;
+
+
 
     // 결제완료,취소된 데이터 저장
     @PostMapping("/save")
@@ -29,7 +35,7 @@ public class PaymentController {
 
     // 결제완료,취소 건들의 리스트 조회
     @GetMapping("/list")
-    public List<PaymentResultResponseList> getCompletedAndCancelledTransactions() {
+    public List<PaymentResultResponse> getCompletedAndCancelledTransactions() {
         return paymentService.getPaymentsList();
     }
 
@@ -37,5 +43,12 @@ public class PaymentController {
     @PostMapping("/finish-settlement")
     public void finishSettlement(@RequestBody FinishSettlementRequest finishSettlementRequest) {
         paymentService.finishSettlement(finishSettlementRequest);
+    }
+
+    //kafkatest
+    @GetMapping("/test")
+    public String test() throws JsonProcessingException {
+        paymentListScheduler.sendMonthlyPaymentEvent();
+       return "Test";
     }
 }
