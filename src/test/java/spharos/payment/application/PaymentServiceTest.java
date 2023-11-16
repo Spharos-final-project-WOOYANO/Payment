@@ -9,6 +9,8 @@ import spharos.payment.domain.PaymentStatus;
 import spharos.payment.domain.PaymentType;
 import spharos.payment.repository.PaymentRepository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 class PaymentServiceTest {
 
