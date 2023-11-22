@@ -29,8 +29,6 @@ springdoc:
   paths-to-match:
     - /api/v1/**
 
-
-
 #axon:
 #  axonserver:
 #    servers: 127.0.0.1:8124
