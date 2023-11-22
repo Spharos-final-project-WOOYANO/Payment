@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spharos.payment.dto.FinishSettlementRequest;
 import spharos.payment.dto.PaymentRequest;
-import spharos.payment.application.PaymentService;
+import spharos.payment.application.PaymentServiceImpl;
 import spharos.payment.dto.PaymentResultResponse;
 import spharos.payment.scheduler.PaymentListScheduler;
 
@@ -20,7 +20,7 @@ import spharos.payment.scheduler.PaymentListScheduler;
 @Slf4j
 public class PaymentController {
 
-    private final PaymentService paymentService;
+    private final PaymentServiceImpl paymentService;
     private final PaymentListScheduler paymentListScheduler;
 
 
@@ -39,11 +39,13 @@ public class PaymentController {
         return paymentService.getPaymentsList();
     }
 
+/*
     // 정산 완료시 상태 변경
     @PostMapping("/finish-settlement")
     public void finishSettlement(@RequestBody FinishSettlementRequest finishSettlementRequest) {
         paymentService.finishSettlement(finishSettlementRequest);
     }
+*/
 
     //kafkatest
     @GetMapping("/test")

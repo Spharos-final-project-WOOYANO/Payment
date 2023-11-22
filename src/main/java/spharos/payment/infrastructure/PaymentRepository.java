@@ -1,4 +1,4 @@
-package spharos.payment.repository;
+package spharos.payment.infrastructure;
 
 import java.time.LocalDateTime;
 import java.util.List;
