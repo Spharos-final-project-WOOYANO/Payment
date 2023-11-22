@@ -1,6 +1,8 @@
 package spharos.payment.domain;
 
-import spharos.payment.global.CodeValue;
+
+import spharos.payment.global.config.CodeValue;
+
 
 public enum PaymentStatus implements CodeValue {
     DONE("0","결제 완료"),

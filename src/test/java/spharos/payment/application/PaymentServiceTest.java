@@ -1,5 +1,8 @@
 package spharos.payment.application;
 
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +12,6 @@ import spharos.payment.domain.PaymentStatus;
 import spharos.payment.domain.PaymentType;
 import spharos.payment.repository.PaymentRepository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class PaymentServiceTest {
@@ -21,9 +23,11 @@ class PaymentServiceTest {
     @Test
     public void 결제완료더미데이터저장() {
         // Given
-        String clientEmail = "example@example.com";
+
+        String clientEmail = "test";
         PaymentType paymentType = PaymentType.CARD;
-        int totalAmount = -100000;
+        int totalAmount = 100000;
+
         LocalDateTime approvedAt = LocalDateTime.now();
         PaymentStatus paymentStatus = PaymentStatus.CANCEL;
 

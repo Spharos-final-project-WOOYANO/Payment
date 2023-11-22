@@ -2,6 +2,7 @@ package spharos.payment.producer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +35,10 @@ public class PaymentEventsProducer {
         //send하면 2개
         //1.blocking call- kafka cluster에 대한 메타데이터를 가져온다 - 이게실패하면 메세지 못보냄
         //2.메세지 보내기가 실제로 발생하고 비동기 반환 send message happens - return a completableFuture
+
+        CompletableFuture<SendResult<String, String>> send = kafkaTemplate.send("test-events", null, value);
         log.info("value : {}", value);
-        CompletableFuture<SendResult<String, String>> send = kafkaTemplate.send("test-events",null, value);
+
         return send
                 .whenComplete((sendResult, throwable) -> {
                     if (throwable != null) {

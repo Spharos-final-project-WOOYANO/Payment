@@ -1,8 +1,9 @@
 package spharos.payment.domain;
 
-import spharos.payment.global.CodeValue;
+import spharos.payment.global.config.CodeValue;
 
-public enum PaymentType implements CodeValue{
+public enum PaymentType implements CodeValue {
+
     CARD("0","카드"),
     EASY_PAYMENT("1","간편결제");
 

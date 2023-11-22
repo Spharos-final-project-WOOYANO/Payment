@@ -4,16 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import spharos.payment.global.common.response.ErrorResponse;
 
-@RestControllerAdvice
 @Slf4j
+@RestControllerAdvice
 public class GlobalExceptionController {
 
     @ExceptionHandler(value = { CustomException.class })
-    public ResponseEntity<ErrorResponse> customExHandle(CustomException e) {
+    public ResponseEntity<?> customExHandle(CustomException e) {
         log.error("[exceptionHandle] ex", e);
         return ErrorResponse.toResponseEntity(e.getResponseCode());
     }
-
-
 }
