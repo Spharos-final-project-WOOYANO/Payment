@@ -7,4 +7,5 @@ import spharos.payment.dto.PaymentResultResponse;
 public interface PaymentService {
      void savePayment(PaymentRequest paymentRequest);
     List<PaymentResultResponse> getPaymentsList();
+
 }

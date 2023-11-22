@@ -35,8 +35,10 @@ public class PaymentEventsProducer {
         //send하면 2개
         //1.blocking call- kafka cluster에 대한 메타데이터를 가져온다 - 이게실패하면 메세지 못보냄
         //2.메세지 보내기가 실제로 발생하고 비동기 반환 send message happens - return a completableFuture
+
         CompletableFuture<SendResult<String, String>> send = kafkaTemplate.send("test-events", null, value);
         log.info("value : {}", value);
+
         return send
                 .whenComplete((sendResult, throwable) -> {
                     if (throwable != null) {

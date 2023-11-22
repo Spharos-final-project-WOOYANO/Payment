@@ -15,5 +15,4 @@ public class GlobalExceptionController {
         log.error("[exceptionHandle] ex", e);
         return ErrorResponse.toResponseEntity(e.getResponseCode());
     }
-
 }
