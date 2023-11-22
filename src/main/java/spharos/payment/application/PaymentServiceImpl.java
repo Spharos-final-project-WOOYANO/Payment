@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.stereotype.Service;
-import spharos.payment.axon.command.SavePaymentCommand;
 import spharos.payment.domain.Payment;
 import spharos.payment.domain.PaymentStatus;
 import spharos.payment.domain.PaymentType;
