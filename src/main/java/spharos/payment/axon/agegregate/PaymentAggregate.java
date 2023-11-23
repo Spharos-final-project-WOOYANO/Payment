@@ -1,4 +1,3 @@
-/*
 package spharos.payment.axon.agegregate;
 
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
@@ -44,4 +43,3 @@ public class PaymentAggregate {
     }
 
 }
-*/
