@@ -27,4 +27,12 @@ public enum PaymentStatus implements CodeValue {
     public String getValue() {
         return value;
     }
+    public static PaymentStatus fromCode(String code) {
+        for (PaymentStatus status : values()) {
+            if (status.code.equals(code)) {
+                return status;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant for code: " + code);
+    }
 }

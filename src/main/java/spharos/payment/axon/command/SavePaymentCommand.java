@@ -1,5 +1,6 @@
 package spharos.payment.axon.command;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,10 +16,10 @@ public class SavePaymentCommand {
     private String id;
 
     private String clientEmail; //사업자 이메일
-    private PaymentType paymentType; //결제수단  카드, 간편결제
+    private String paymentType; //결제수단  카드, 간편결제
     private int totalAmount; //결제 금액
     private LocalDateTime approvedAt; //결제 완료,취소가 일어난 날짜와 시간 정보
-    private PaymentStatus paymentStatus; //결제 완료, 취소, 정산완료
+    private String paymentStatus; //결제 완료, 취소, 정산완료
 
 
 }

@@ -11,7 +11,7 @@ public class PaymentRequest {
     private String clientEmail; //사업자 이메일
 
     @Schema(description = "결제 수단")
-    private PaymentType payType; //있
+    private String payType; //있
     @Schema(description = "총 결제 금액")
     private int totalAmount; //있
 
@@ -19,5 +19,5 @@ public class PaymentRequest {
     private LocalDateTime approvedAt; //있
 
     @Schema(description = "결제 처리 상태")
-    private PaymentStatus payStatus;
+    private String payStatus;
 }

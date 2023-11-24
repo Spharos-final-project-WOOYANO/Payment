@@ -25,4 +25,13 @@ public enum PaymentType implements CodeValue {
     public String getValue() {
         return value;
     }
+
+    public static PaymentType fromCode(String code) {
+        for (PaymentType type : values()) {
+            if (type.code.equals(code)) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant for code: " + code);
+    }
 }
