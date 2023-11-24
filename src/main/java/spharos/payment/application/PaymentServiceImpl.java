@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.stereotype.Service;
+import spharos.payment.axon.command.SavePaymentCommand;
 import spharos.payment.domain.Payment;
 import spharos.payment.domain.PaymentStatus;
 import spharos.payment.domain.PaymentType;
@@ -20,21 +21,21 @@ import spharos.payment.infrastructure.PaymentRepository;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class PaymentServiceImpl implements PaymentService {
+public class PaymentServiceImpl  {
 
     private final PaymentRepository paymentRepository;
     private final CommandGateway commandGateway;
 
     //결제 저장
     public void savePayment(PaymentRequest paymentRequest) {
-        Payment payment = Payment.createPayment(paymentRequest.getClientEmail(),  paymentRequest.getPayType(),
+   /*     Payment payment = Payment.createPayment(paymentRequest.getClientEmail(),  paymentRequest.getPayType(),
                 paymentRequest.getTotalAmount(), paymentRequest.getApprovedAt(),paymentRequest.getPayStatus());
-        paymentRepository.save(payment);
-/*        SavePaymentCommand savePaymentCommand = new SavePaymentCommand(UUID.randomUUID().toString(),
+        paymentRepository.save(payment);*/
+        SavePaymentCommand savePaymentCommand = new SavePaymentCommand(UUID.randomUUID().toString(),
                 paymentRequest.getClientEmail(),
                 paymentRequest.getPayType(), paymentRequest.getTotalAmount(), paymentRequest.getApprovedAt(),
                 paymentRequest.getPayStatus());
-        commandGateway.send(savePaymentCommand);*/
+        commandGateway.send(savePaymentCommand);
     }
     //결제 완료,취소 리스트
     public List<PaymentResultResponse> getPaymentsList(){

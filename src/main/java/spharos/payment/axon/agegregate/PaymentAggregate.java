@@ -11,6 +11,8 @@ import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 import spharos.payment.axon.command.SavePaymentCommand;
 import spharos.payment.axon.event.PaymentSaveEvent;
+import spharos.payment.domain.PaymentStatus;
+import spharos.payment.domain.PaymentType;
 
 
 @Aggregate
@@ -24,7 +26,7 @@ public class PaymentAggregate {
 
     @CommandHandler
     public PaymentAggregate(SavePaymentCommand command)  {
-        //throw new RuntimeException("Custom runtime exception message");
+     //   throw new RuntimeException("Custom runtime exception message");
 
 
         PaymentSaveEvent reservationCreateEvent = new PaymentSaveEvent(command.getId(), command.getClientEmail(),

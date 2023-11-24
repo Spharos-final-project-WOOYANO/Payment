@@ -10,24 +10,29 @@ import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.stereotype.Component;
 import spharos.payment.axon.event.PaymentSaveEvent;
 import spharos.payment.domain.Payment;
+import spharos.payment.domain.PaymentStatus;
+import spharos.payment.domain.PaymentStatusConverter;
 import spharos.payment.domain.PaymentType;
+import spharos.payment.domain.PaymentTypeConverter;
 import spharos.payment.infrastructure.PaymentRepository;
 
 @Component
 @Slf4j
-@EnableRetry
 @RequiredArgsConstructor
 public class ReservationEventHandler {
     private final PaymentRepository paymentRepository;
 
 
     @EventHandler
-    @AllowReplay
     public void on(PaymentSaveEvent event) {
-        PaymentType paymentType = event.getPaymentType();
+        log.info("event = " + event.getClientEmail());
+        log.info("event = " + event.getPaymentType());
+        log.info("event = " + event.getPaymentStatus());
+        PaymentType paymentType = PaymentType.fromCode(event.getPaymentType());
+        PaymentStatus paymentStatus = PaymentStatus.fromCode(event.getPaymentStatus());
 
-        Payment payment = Payment.createPayment(event.getClientEmail(), event.getPaymentType(), event.getTotalAmount(),
-                event.getApprovedAt(), event.getPaymentStatus());
+        Payment payment = Payment.createPayment(event.getClientEmail(), paymentType, event.getTotalAmount(),
+                event.getApprovedAt(), paymentStatus);
         paymentRepository.save(payment);
 
     }
