@@ -13,7 +13,7 @@ import spharos.payment.domain.PaymentType;
 @Getter
 public class PaymentSaveEvent {
 
-    private String id;
+    private String reservation_num;
 
     private String clientEmail; //사업자 이메일
     private String paymentType; //결제수단  카드, 간편결제
