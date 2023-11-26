@@ -32,7 +32,7 @@ public class BatchConfig {
     private final PlatformTransactionManager transactionManager;
     private final JobRepository jobRepository;
     private final PaymentWriter paymentWriter;
-    private final static int CHUNK_SIZE = 10;
+    private final static int CHUNK_SIZE = 500;
     @Bean
     public Job createJob() {
         return new JobBuilder("paymentJob", jobRepository)
