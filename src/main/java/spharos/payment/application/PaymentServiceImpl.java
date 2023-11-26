@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.stereotype.Service;
 import spharos.payment.axon.command.SavePaymentCommand;
+import spharos.payment.batch.BatchScheduler;
 import spharos.payment.domain.Payment;
 import spharos.payment.domain.PaymentStatus;
 import spharos.payment.domain.PaymentType;
@@ -26,6 +27,7 @@ public class PaymentServiceImpl  {
     private final PaymentRepository paymentRepository;
     private final CommandGateway commandGateway;
 
+    private final BatchScheduler batchScheduler;
     //결제 저장
     public void savePayment(PaymentRequest paymentRequest) {
    /*     Payment payment = Payment.createPayment(paymentRequest.getClientEmail(),  paymentRequest.getPayType(),
@@ -52,6 +54,13 @@ public class PaymentServiceImpl  {
         List<PaymentResultResponse> payments = paymentRepository.findByApprovedAtAndPaymentStatus(parse, parse1);
         return payments;
 
+    }
+
+    //배치 하고 db에서 이름만 뽑아서 이름으로 밸류 찾고 그걸 카프카로 보내보기
+    public List<Payment> batchTest(){
+        batchScheduler.runJob();
+        List<Payment> all = paymentRepository.findAll();
+        return all;
     }
 
 
