@@ -54,10 +54,10 @@ public class PaymentController {
 
     //batch test
     @GetMapping("/batch")
-    public List<Payment> batchTest()  {
-        List<Payment> payments = paymentService.batchTest();
-        return payments;
-        // batchScheduler.runJob();
+    public void batchTest()  {
+        //paymentService.batchTest();
+
+        batchScheduler.runJob();
 
     }
 
