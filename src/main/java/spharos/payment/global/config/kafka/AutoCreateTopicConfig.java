@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.config.TopicBuilder;
 
 @Configuration
-//@Profile("secret")
 public class AutoCreateTopicConfig {
 
 
