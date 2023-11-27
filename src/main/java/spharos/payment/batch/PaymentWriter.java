@@ -25,15 +25,14 @@ public class PaymentWriter implements ItemWriter<BatchPayment> {
 
     @Override
     public void write(Chunk<? extends BatchPayment> chunk) throws Exception {
-        for(BatchPayment batchPayment : chunk){
-            System.out.println("item = " + batchPayment);
-            String clientEmail = batchPayment.getClientEmail();
-            int totalAmount = batchPayment.getTotalAmount();
-            valusOps.increment(clientEmail, totalAmount);
-            log.info("end writer");
-        }
-
-     //   redisService.incrementHashField("hashKey", item.getClientEmail(), 1);
+//        for(BatchPayment batchPayment : chunk){
+//            System.out.println("item = " + batchPayment);
+//            String clientEmail = batchPayment.getClientEmail();
+//            int totalAmount = batchPayment.getTotalAmount();
+//            valusOps.increment(clientEmail, totalAmount);
+//            log.info("end writer");
+//        }
+        log.info("chunk : {}", chunk);
 
     }
 }
