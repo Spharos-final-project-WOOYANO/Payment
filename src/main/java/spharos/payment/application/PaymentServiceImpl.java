@@ -57,10 +57,10 @@ public class PaymentServiceImpl  {
     }
 
     //배치 하고 db에서 이름만 뽑아서 이름으로 밸류 찾고 그걸 카프카로 보내보기
-    public List<Payment> batchTest(){
+    public void batchTest(){
         batchScheduler.runJob();
-        List<Payment> all = paymentRepository.findAll();
-        return all;
+        //List<Payment> all = paymentRepository.findAll();
+       // return all;
     }
 
 
