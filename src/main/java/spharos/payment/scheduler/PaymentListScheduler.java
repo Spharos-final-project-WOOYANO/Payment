@@ -28,12 +28,7 @@ public class PaymentListScheduler {
     public void sendMonthlyPaymentEvent() throws JsonProcessingException {
         log.info("Sending Monthly Payment Event");
         List<PaymentResultResponse> paymentsList = paymentService.getPaymentsList();
-       /* Map<String, Long> clientEmailToMoney = new HashMap<>();
-        for(PaymentResultResponse paymentResultResponse : paymentsList) {
-            clientEmailToMoney.put(paymentResultResponse.getClientEmail(), paymentResultResponse.getTotalAmount());
-        }
-        log.info("clientEmailToMoney : {}", clientEmailToMoney);
-        paymentEventsProducer.sendLibraryEvent(clientEmailToMoney);*/
+
         for (PaymentResultResponse PaymentResultResponse : paymentsList) {
             log.info("PaymentResultResponse : {}", PaymentResultResponse.getClientEmail());
             paymentEventsProducer.sendLibraryEvent(PaymentResultResponse);

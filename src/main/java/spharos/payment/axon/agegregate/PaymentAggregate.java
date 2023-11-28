@@ -26,7 +26,7 @@ public class PaymentAggregate {
 
     @CommandHandler
     public PaymentAggregate(SavePaymentCommand command)  {
-     //   throw new RuntimeException("Custom runtime exception message");
+        //throw new RuntimeException("Custom runtime exception message");
         log.info("getReservation_num = " + command.getReservation_num());
         PaymentSaveEvent reservationCreateEvent = new PaymentSaveEvent(command.getReservation_num(), command.getClientEmail(),
                 command.getPaymentType(), command.getTotalAmount(), command.getApprovedAt(), command.getPaymentStatus());
