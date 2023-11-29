@@ -1,4 +1,4 @@
-package spharos.payment.domain;
+package spharos.payment.domain.enumPackage;
 
 import jakarta.persistence.AttributeConverter;
 import java.util.EnumSet;

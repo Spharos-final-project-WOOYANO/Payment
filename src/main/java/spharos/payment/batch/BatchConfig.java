@@ -36,7 +36,6 @@ public class BatchConfig {
     @Bean
     public Job createJob() {
         return new JobBuilder("paymentJob", jobRepository)
-                //     .validator(new CustomJobParameterValidator())
                 .start(paymentStep())
                 .build();
     }

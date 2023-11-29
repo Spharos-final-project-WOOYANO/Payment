@@ -1,19 +1,17 @@
-package spharos.payment.domain;
-
+package spharos.payment.domain.enumPackage;
 
 import spharos.payment.global.config.CodeValue;
 
+public enum PaymentType implements CodeValue {
 
-public enum PaymentStatus implements CodeValue {
-    DONE("0","결제 완료"),
-    CANCEL("1","결제 취소"),
+    CARD("0","카드"),
+    EASY_PAYMENT("1","간편결제");
 
-    SETTLED("2","정산 완료");
 
     private final String code;
     private final String value;
 
-    PaymentStatus(String code, String value) {
+    PaymentType(String code, String value) {
         this.code = code;
         this.value = value;
     }
@@ -27,10 +25,11 @@ public enum PaymentStatus implements CodeValue {
     public String getValue() {
         return value;
     }
-    public static PaymentStatus fromCode(String code) {
-        for (PaymentStatus status : values()) {
-            if (status.code.equals(code)) {
-                return status;
+
+    public static PaymentType fromCode(String code) {
+        for (PaymentType type : values()) {
+            if (type.code.equals(code)) {
+                return type;
             }
         }
         throw new IllegalArgumentException("No enum constant for code: " + code);

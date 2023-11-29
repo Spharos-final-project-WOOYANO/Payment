@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import spharos.payment.domain.Payment;
-import spharos.payment.domain.PaymentStatus;
-import spharos.payment.domain.PaymentType;
-import spharos.payment.repository.PaymentRepository;
+import spharos.payment.domain.enumPackage.PaymentStatus;
+import spharos.payment.domain.enumPackage.PaymentType;
+import spharos.payment.infrastructure.PaymentRepository;
 
 
 @SpringBootTest

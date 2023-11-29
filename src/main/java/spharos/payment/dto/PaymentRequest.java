@@ -3,8 +3,6 @@ package spharos.payment.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import lombok.Data;
-import spharos.payment.domain.PaymentStatus;
-import spharos.payment.domain.PaymentType;
 
 @Data
 public class PaymentRequest {

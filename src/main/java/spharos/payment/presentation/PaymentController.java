@@ -45,7 +45,7 @@ public class PaymentController {
     }
 
 
-    //kafkatest
+    //결제 내역
     @GetMapping("/test")
     public String test() throws JsonProcessingException {
         paymentListScheduler.sendMonthlyPaymentEvent();

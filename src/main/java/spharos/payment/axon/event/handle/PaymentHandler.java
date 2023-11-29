@@ -7,8 +7,8 @@ import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
 import spharos.payment.axon.event.PaymentSaveEvent;
 import spharos.payment.domain.Payment;
-import spharos.payment.domain.PaymentStatus;
-import spharos.payment.domain.PaymentType;
+import spharos.payment.domain.enumPackage.PaymentStatus;
+import spharos.payment.domain.enumPackage.PaymentType;
 import spharos.payment.infrastructure.PaymentRepository;
 
 @Component
@@ -21,9 +21,7 @@ public class PaymentHandler {
 
     @EventHandler
     public void on(PaymentSaveEvent event) {
-        log.info("event = " + event.getClientEmail());
-        log.info("event = " + event.getPaymentType());
-        log.info("event = " + event.getPaymentStatus());
+
         PaymentType paymentType = PaymentType.fromCode(event.getPaymentType());
         PaymentStatus paymentStatus = PaymentStatus.fromCode(event.getPaymentStatus());
 

@@ -1,12 +1,9 @@
 package spharos.payment.axon.command;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import spharos.payment.domain.PaymentStatus;
-import spharos.payment.domain.PaymentType;
 
 @Getter
 @NoArgsConstructor

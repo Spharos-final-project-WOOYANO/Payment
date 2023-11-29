@@ -10,6 +10,10 @@ import java.time.LocalDateTime;;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import spharos.payment.domain.enumPackage.PaymentStatus;
+import spharos.payment.domain.enumPackage.PaymentStatusConverter;
+import spharos.payment.domain.enumPackage.PaymentType;
+import spharos.payment.domain.enumPackage.PaymentTypeConverter;
 
 @Entity
 @Getter
