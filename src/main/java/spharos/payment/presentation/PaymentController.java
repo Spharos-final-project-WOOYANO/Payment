@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import spharos.payment.application.PaymentService;
 import spharos.payment.batch.BatchScheduler;
 import spharos.payment.domain.Payment;
 import spharos.payment.dto.FinishSettlementRequest;
@@ -24,7 +25,7 @@ import spharos.payment.scheduler.PaymentListScheduler;
 @Slf4j
 public class PaymentController {
 
-    private final PaymentServiceImpl paymentService;
+    private final PaymentService paymentService;
 
     private final PaymentListScheduler paymentListScheduler;
     private final BatchScheduler batchScheduler;

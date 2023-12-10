@@ -20,7 +20,7 @@ import spharos.payment.infrastructure.PaymentRepository;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class PaymentServiceImpl  {
+public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final CommandGateway commandGateway;
