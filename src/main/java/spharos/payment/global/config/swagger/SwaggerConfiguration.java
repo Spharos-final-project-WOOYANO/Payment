@@ -1,4 +1,4 @@
-package spharos.global.config.swagger;
+package spharos.payment.global.config.swagger;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import lombok.RequiredArgsConstructor;

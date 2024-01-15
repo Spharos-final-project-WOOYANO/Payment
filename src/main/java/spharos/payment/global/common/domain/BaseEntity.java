@@ -1,4 +1,4 @@
-package spharos.global.common.domain;
+package spharos.payment.global.common.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

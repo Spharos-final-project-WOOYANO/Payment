@@ -1,4 +1,4 @@
-package spharos.global.config.kafka;
+package spharos.payment.global.config.kafka;
 
 
 import org.apache.kafka.clients.admin.NewTopic;

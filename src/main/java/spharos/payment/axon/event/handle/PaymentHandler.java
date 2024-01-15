@@ -1,5 +1,7 @@
 package spharos.payment.axon.event.handle;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.config.ProcessingGroup;
@@ -9,7 +11,7 @@ import spharos.payment.axon.event.PaymentSaveEvent;
 import spharos.payment.domain.Payment;
 import spharos.payment.domain.enumPackage.PaymentMethod;
 import spharos.payment.domain.enumPackage.PaymentStatus;
-import spharos.payment.domain.enumPackage.PaymentType;
+
 import spharos.payment.infrastructure.PaymentRepository;
 
 @Component
@@ -25,8 +27,11 @@ public class PaymentHandler {
 
         PaymentMethod paymentMethod = PaymentMethod.findByValue(event.getMethod());
         PaymentStatus paymentStatus = PaymentStatus.findByValue(event.getStatus());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
+        LocalDateTime approvedAt = LocalDateTime.parse(event.getApprovedAt(), formatter);
 
-        Payment payment = Payment.createPayment(event.getClientEmail());
+        Payment payment = Payment.createPayment(event.getClientEmail(), paymentMethod, event.getAmount(), paymentStatus,
+                event.getOrderId(),event.getPaymentKey(),event.getSuppliedAmount(), event.getVat(), approvedAt);
         paymentRepository.save(payment);
 
     }

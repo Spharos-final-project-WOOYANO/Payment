@@ -1,4 +1,4 @@
-package spharos.global.config;
+package spharos.payment.global.config;
 
 public interface CodeValue {
     String getCode();

@@ -1,7 +1,7 @@
 package spharos.payment.domain.enumPackage;
 
 
-import spharos.global.config.CodeValue;
+import spharos.payment.global.config.CodeValue;
 
 public enum PaymentMethod implements CodeValue {
 

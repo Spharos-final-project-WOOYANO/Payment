@@ -8,9 +8,10 @@ import org.json.simple.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import spharos.global.config.toss.TossPaymentConfig;
+import spharos.payment.global.config.toss.TossPaymentConfig;
 import spharos.payment.application.dto.PaymentResponse;
 
 @Component

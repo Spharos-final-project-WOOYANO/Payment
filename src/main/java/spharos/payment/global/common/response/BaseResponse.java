@@ -1,4 +1,4 @@
-package spharos.global.common.response;
+package spharos.payment.global.common.response;
 
 public record BaseResponse<T>(Boolean success, int code, T result) {
 

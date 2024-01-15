@@ -1,4 +1,4 @@
-package spharos.global.config.kafka;
+package spharos.payment.global.config.kafka;
 
 import java.util.HashMap;
 import java.util.Map;

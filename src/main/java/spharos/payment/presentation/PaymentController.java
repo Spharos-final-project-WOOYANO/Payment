@@ -12,13 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import spharos.global.common.response.BaseResponse;
+import spharos.payment.global.common.response.BaseResponse;
 import spharos.payment.application.PaymentService;
 import spharos.payment.batch.BatchScheduler;
-import spharos.payment.domain.Payment;
-import spharos.payment.dto.FinishSettlementRequest;
 import spharos.payment.dto.PaymentRequest;
-import spharos.payment.application.PaymentServiceImpl;
 
 
 import spharos.payment.dto.PaymentResultResponse;
@@ -52,7 +49,7 @@ public class PaymentController {
                                                      @RequestParam(name = "serviceStart") @DateTimeFormat(pattern = "HH:mm") LocalTime serviceStart,
                                                      @RequestParam(name = "reservationGoodsId") List<Long> reservationGoodsId) {
 
-        paymentService.approvePayment(paymentKey, orderId, amount, serviceId, workerId, userEmail,
+        paymentService.apporvePayment(paymentKey, orderId, amount, serviceId, workerId, userEmail,
                 reservationDate, request, address, clientEmail, serviceStart, reservationGoodsId);
 
         //return ResponseEntity.ok(paymentResponse);

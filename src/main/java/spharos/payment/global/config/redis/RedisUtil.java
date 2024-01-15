@@ -1,4 +1,4 @@
-package spharos.global.config.redis;
+package spharos.payment.global.config.redis;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
