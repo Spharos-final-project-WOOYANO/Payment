@@ -1,8 +1,8 @@
-package spharos.payment.global.exception;
+package spharos.global.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import spharos.payment.global.common.response.ResponseCode;
+import spharos.global.common.response.ResponseCode;
 
 @Getter
 @AllArgsConstructor

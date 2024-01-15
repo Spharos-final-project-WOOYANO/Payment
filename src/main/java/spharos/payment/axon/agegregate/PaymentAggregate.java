@@ -25,9 +25,10 @@ public class PaymentAggregate {
     @CommandHandler
     public PaymentAggregate(SavePaymentCommand command)  {
         //throw new RuntimeException("Custom runtime exception message");
-        log.info("getReservation_num = " + command.getReservation_num());
-        PaymentSaveEvent reservationCreateEvent = new PaymentSaveEvent(command.getReservation_num(), command.getClientEmail(),
-                command.getPaymentType(), command.getTotalAmount(), command.getApprovedAt(), command.getPaymentStatus());
+        log.info("getReservation_num = " + command.getOrderId());
+        PaymentSaveEvent reservationCreateEvent = new PaymentSaveEvent(command.getOrderId(), command.getAmount(),
+                command.getClientEmail(), command.getPaymentKey(), command.getSuppliedAmount(), command.getVat(),
+                command.getStatus(),command.getMethod(),command.getApprovedAt());
 
         apply(reservationCreateEvent);
 
@@ -36,7 +37,7 @@ public class PaymentAggregate {
     @EventSourcingHandler
     public void on(PaymentSaveEvent event) {
         log.info("eventsoure");
-        this.id = event.getReservation_num();
+        this.id = event.getOrderId();
     }
 
 }

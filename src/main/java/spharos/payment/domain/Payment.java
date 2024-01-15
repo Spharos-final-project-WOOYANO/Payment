@@ -8,12 +8,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import spharos.payment.domain.enumPackage.PaymentMethod;
+import spharos.payment.domain.enumPackage.PaymentMethodConverter;
 import spharos.payment.domain.enumPackage.PaymentStatus;
 import spharos.payment.domain.enumPackage.PaymentStatusConverter;
-import spharos.payment.domain.enumPackage.PaymentType;
-import spharos.payment.domain.enumPackage.PaymentTypeConverter;
+
 
 @Entity
 @Getter
@@ -24,35 +26,65 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,name = "client_Email")
+    @Column(name = "client_Email")
     private String clientEmail; //사업자 이메일
-    @Column(nullable = false,name = "payment_Type")
-    @Convert(converter = PaymentTypeConverter.class)
-    private PaymentType paymentType; //결제수단  카드, 간편결제
+    @Column(name = "payment_Method")
+    @Convert(converter = PaymentMethodConverter.class)
+    private PaymentMethod paymentMethod; //결제수단  카드, 간편결제
 
-    @Column(nullable = false,name = "total_Amount")
+    @Column(name = "total_Amount")
     private int totalAmount; //결제 금액
 
-    @Column(nullable = false,name = "approved_At")
-    private LocalDateTime approvedAt; //결제 완료,취소가 일어난 날짜와 시간 정보
 
-    @Column(nullable = false,name = "payment_Status")
+    @Column(name = "payment_Status")
     @Convert(converter = PaymentStatusConverter.class)
-    private PaymentStatus paymentStatus; //결제 완료, 취소, 정산완료
+    private PaymentStatus paymentStatus; //결제 승인대기, 결제 완료, 취소
 
-    private Payment(String clientEmail, PaymentType payType, int totalAmount,
-                    LocalDateTime approvedAt, PaymentStatus payStatus) {
+    @Column(name = "order_Id")
+    private String orderId;
+
+    @Column(name = "payment_Key")
+    private String paymentKey;
+
+    @Column(name = "supplied_Amount")
+    private int suppliedAmount; //공급가액
+
+    @Column(name = "vat")
+    private int vat; //부가세 10퍼
+
+
+    private LocalDateTime approvedAt; //결제 승인 날짜 시간
+
+
+    @Builder
+    private Payment(String clientEmail, PaymentMethod paymentMethod, int totalAmount, PaymentStatus paymentStatus,
+                    String orderId, String paymentKey, int suppliedAmount, int vat, LocalDateTime approvedAt) {
         this.clientEmail = clientEmail;
-        this.paymentType = payType;
+        this.paymentMethod = paymentMethod;
         this.totalAmount = totalAmount;
+        this.paymentStatus = paymentStatus;
+        this.orderId = orderId;
+        this.paymentKey = paymentKey;
+        this.suppliedAmount = suppliedAmount;
+        this.vat = vat;
         this.approvedAt = approvedAt;
-        this.paymentStatus = payStatus;
     }
 
-    public static Payment createPayment(String clientEmail, PaymentType payType, int totalAmount,
-                                        LocalDateTime approvedAt, PaymentStatus paymentStatus) {
-        return new Payment(clientEmail, payType,
-                totalAmount, approvedAt,paymentStatus);
+
+    public static Payment createPayment(String clientEmail, PaymentMethod paymentMethod, int totalAmount,
+                                        PaymentStatus paymentStatus, String orderId,
+                                        String paymentKey, int suppliedAmount, int vat, LocalDateTime approvedAt ) {
+        return Payment.builder()
+                .clientEmail(clientEmail)
+                .paymentMethod(paymentMethod)
+                .totalAmount(totalAmount)
+                .paymentStatus(paymentStatus)
+                .orderId(orderId)
+                .paymentKey(paymentKey)
+                .suppliedAmount(suppliedAmount)
+                .vat(vat)
+                .approvedAt (approvedAt )
+                .build();
     }
 
     public void finishSettlement(PaymentStatus paymentStatus) {

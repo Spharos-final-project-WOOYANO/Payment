@@ -1,4 +1,4 @@
-package spharos.payment.global.config.kafka;
+package spharos.global.config.kafka;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +16,7 @@ import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 import spharos.payment.dto.PaymentResultResponse;
 
-@Configuration
+//@Configuration
 @EnableConfigurationProperties(KafkaProperties.class)
 public class ProducerConfiguration {
     private final KafkaProperties properties;

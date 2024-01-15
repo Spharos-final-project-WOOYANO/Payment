@@ -10,13 +10,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SavePaymentCommand {
 
-    private String reservation_num;
+    private String orderId;
 
-    private String clientEmail; //사업자 이메일
-    private String paymentType; //결제수단  카드, 간편결제
-    private int totalAmount; //결제 금액
-    private LocalDateTime approvedAt; //결제 완료,취소가 일어난 날짜와 시간 정보
-    private String paymentStatus; //결제 완료, 취소, 정산완료
+    private int amount;
+    private String clientEmail;
+    private String paymentKey;
+    private int suppliedAmount;
+    private int vat;
+    private String status;
+    private String method;
+    private String approvedAt;
 
 
 }

@@ -1,4 +1,4 @@
-package spharos.payment.global.config.kafka;
+package spharos.global.config.kafka;
 
 
 import org.apache.kafka.clients.admin.NewTopic;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.config.TopicBuilder;
 
-@Configuration
+//@Configuration
 public class AutoCreateTopicConfig {
 
 

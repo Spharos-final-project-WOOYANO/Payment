@@ -1,4 +1,4 @@
-package spharos.payment.global.utill;
+package spharos.global.utill;
 
 import java.util.Random;
 import org.springframework.context.annotation.Bean;

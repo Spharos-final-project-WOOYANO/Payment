@@ -1,4 +1,4 @@
-package spharos.payment.global.common.response;
+package spharos.global.common.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
