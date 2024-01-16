@@ -8,6 +8,7 @@ import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
+import spharos.payment.axon.command.CancelPaymentCommand;
 import spharos.payment.axon.command.SavePaymentCommand;
 import spharos.payment.axon.event.PaymentSaveEvent;
 
@@ -18,7 +19,7 @@ import spharos.payment.axon.event.PaymentSaveEvent;
 public class PaymentAggregate {
 
     @AggregateIdentifier
-    private String id;
+    private String orderId;
 
 
     // 결제 저장
@@ -28,16 +29,31 @@ public class PaymentAggregate {
         log.info("getReservation_num = " + command.getOrderId());
         PaymentSaveEvent reservationCreateEvent = new PaymentSaveEvent(command.getOrderId(), command.getAmount(),
                 command.getClientEmail(), command.getPaymentKey(), command.getSuppliedAmount(), command.getVat(),
-                command.getStatus(),command.getMethod(),command.getApprovedAt());
+                command.getStatus(),command.getMethod(),command.getApprovedAt(),command.getServiceId(),command.getWorkerId(),
+                command.getReservationDate(),command.getRequest(),command.getAddress(),command.getServiceStart()
+                ,command.getReservationGoodsId(),command.getUserEmail());
 
         apply(reservationCreateEvent);
+    }
+
+    @CommandHandler
+    public void cancelCommand(CancelPaymentCommand command){
+        CancelPaymentCommand cancelPaymentCommand = new CancelPaymentCommand(command.getOrderId(),
+                command.getPaymentKey());
+        apply(cancelPaymentCommand);
 
     }
+
+
 
     @EventSourcingHandler
     public void on(PaymentSaveEvent event) {
-        log.info("eventsoure");
-        this.id = event.getOrderId();
+        this.orderId = event.getOrderId();
     }
 
+
+    @EventSourcingHandler
+    public void cancel(CancelPaymentCommand event) {
+        this.orderId = event.getOrderId();
+    }
 }

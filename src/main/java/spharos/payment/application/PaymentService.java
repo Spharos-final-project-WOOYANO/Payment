@@ -8,7 +8,7 @@ import spharos.payment.dto.PaymentResultResponse;
 
 public interface PaymentService {
 
-    void apporvePayment(String paymentKey, String orderId, int amount,
+    void approvePayment(String paymentKey, String orderId, int amount,
                                                  Long serviceId, Long workerId, String userEmail,
                                                  LocalDate reservationDate, String request, String address,
                                                  String clientEmail, LocalTime serviceStart, List<Long> reservationGoodsId);

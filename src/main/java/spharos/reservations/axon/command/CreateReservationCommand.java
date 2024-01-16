@@ -1,36 +1,26 @@
-package spharos.payment.axon.event;
+package spharos.reservations.axon.command;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-public class PaymentSaveEvent {
+public class CreateReservationCommand {
 
     private String orderId;
-
     private int amount;
-    private String clientEmail;
-    private String paymentKey;
-    private int suppliedAmount;
-    private int vat;
-    private String status;
-    private String method;
-    private String approvedAt;
     private Long serviceId;
-    private Long workerId;
-
+    private String userEmail;
     private LocalDate reservationDate;
     private String request;
     private String address;
     private LocalTime serviceStart;
-    private List<Long> reservationGoodsId;
-    private String userEmail;
+    private Long workerId;
+
+
 }

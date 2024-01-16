@@ -31,9 +31,12 @@ public class PaymentServiceImpl implements PaymentService {
     private final TossPaymentAccept tossPaymentAccept;
 
     @Override
-    public void apporvePayment(String paymentKey, String orderId, int amount, Long serviceId, Long workerId,
+    public void approvePayment(String paymentKey, String orderId, int amount, Long serviceId, Long workerId,
                                String userEmail, LocalDate reservationDate, String request, String address,
                                String clientEmail, LocalTime serviceStart, List<Long> reservationGoodsId) {
+
+        //checkWorkerAvailability(worker, reservationDate, serviceStart);
+        //verifyPayment(orderId, amount);
 
         //토스 결제 외부 api 통신
         PaymentResponse paymentResponse = tossPaymentAccept.requestPaymentAccept(paymentKey, orderId, amount);
@@ -42,12 +45,11 @@ public class PaymentServiceImpl implements PaymentService {
         int vat = paymentResponse.getVat();
         String status = paymentResponse.getStatus();
         String method = paymentResponse.getMethod();
-        PaymentMethod paymentMethod = PaymentMethod.findByValue(method);
-        PaymentStatus paymentStatus = PaymentStatus.findByValue(status);
         String approvedAt = paymentResponse.getApprovedAt();
 
         SavePaymentCommand savePaymentCommand = new SavePaymentCommand(orderId, amount, clientEmail, paymentKey,
-                suppliedAmount, vat, status, method, approvedAt);
+                suppliedAmount, vat, status, method, approvedAt,serviceId,workerId,reservationDate,request,address
+                ,serviceStart,reservationGoodsId,userEmail);
         commandGateway.send(savePaymentCommand);
 
     }

@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
+import spharos.payment.axon.command.CancelPaymentCommand;
+import spharos.payment.axon.event.PaymentCancelEvent;
 import spharos.payment.axon.event.PaymentSaveEvent;
 import spharos.payment.domain.Payment;
 import spharos.payment.domain.enumPackage.PaymentMethod;
@@ -36,6 +38,10 @@ public class PaymentHandler {
 
     }
 
+    @EventHandler
+    public void cancel(PaymentCancelEvent event){
+        paymentRepository.deleteByPaymentKey(event.getPaymentKey());
+    }
 
 }
 

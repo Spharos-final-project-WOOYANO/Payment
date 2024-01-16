@@ -49,7 +49,7 @@ public class PaymentController {
                                                      @RequestParam(name = "serviceStart") @DateTimeFormat(pattern = "HH:mm") LocalTime serviceStart,
                                                      @RequestParam(name = "reservationGoodsId") List<Long> reservationGoodsId) {
 
-        paymentService.apporvePayment(paymentKey, orderId, amount, serviceId, workerId, userEmail,
+        paymentService.approvePayment(paymentKey, orderId, amount, serviceId, workerId, userEmail,
                 reservationDate, request, address, clientEmail, serviceStart, reservationGoodsId);
 
         //return ResponseEntity.ok(paymentResponse);
