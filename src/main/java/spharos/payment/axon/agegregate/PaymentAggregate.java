@@ -8,8 +8,11 @@ import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
+import org.springframework.beans.factory.annotation.Autowired;
+import spharos.payment.application.TossPaymentAccept;
 import spharos.payment.axon.command.CancelPaymentCommand;
 import spharos.payment.axon.command.SavePaymentCommand;
+import spharos.payment.axon.event.PaymentCancelEvent;
 import spharos.payment.axon.event.PaymentSaveEvent;
 
 
@@ -20,6 +23,8 @@ public class PaymentAggregate {
 
     @AggregateIdentifier
     private String orderId;
+    @Autowired
+    private TossPaymentAccept tossPaymentAccept;
 
 
     // 결제 저장
@@ -38,10 +43,10 @@ public class PaymentAggregate {
 
     @CommandHandler
     public void cancelCommand(CancelPaymentCommand command){
-        CancelPaymentCommand cancelPaymentCommand = new CancelPaymentCommand(command.getOrderId(),
+        tossPaymentAccept.cancelPayment(command.getPaymentKey()," ");
+        PaymentCancelEvent cancelPaymentCommand = new PaymentCancelEvent(command.getOrderId(),
                 command.getPaymentKey());
         apply(cancelPaymentCommand);
-
     }
 
 
@@ -53,7 +58,7 @@ public class PaymentAggregate {
 
 
     @EventSourcingHandler
-    public void cancel(CancelPaymentCommand event) {
+    public void cancel(PaymentCancelEvent event) {
         this.orderId = event.getOrderId();
     }
 }

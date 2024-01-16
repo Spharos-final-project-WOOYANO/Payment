@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import spharos.payment.global.config.toss.TossPaymentConfig;
 import spharos.payment.application.dto.PaymentResponse;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class TossPaymentAccept {
@@ -40,6 +42,23 @@ public class TossPaymentAccept {
         return paymentResponse;
 
     }
+
+    //결제 취소
+    public PaymentResponse cancelPayment(String paymentKey,String cancelReason) {
+        log.info("PAY CANCEL");
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = getHeaders();
+        org.json.JSONObject params = new org.json.JSONObject();
+        params.put("cancelReason",cancelReason);
+        HttpEntity<String> jsonObjectHttpEntity = new HttpEntity<>(params.toString(), headers);
+        String apiUrl = TossPaymentConfig.URL + paymentKey + "/cancel";
+
+        PaymentResponse paymentSuccessDto = restTemplate.postForObject(apiUrl,
+                jsonObjectHttpEntity,
+                PaymentResponse.class);
+        return paymentSuccessDto;
+    }
+
     //헤더 필수값
     private HttpHeaders getHeaders() {
         HttpHeaders headers = new HttpHeaders();

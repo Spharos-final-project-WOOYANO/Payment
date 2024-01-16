@@ -12,6 +12,8 @@ import org.axonframework.modelling.saga.SagaEventHandler;
 import org.axonframework.modelling.saga.StartSaga;
 import org.axonframework.spring.stereotype.Saga;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import spharos.payment.application.TossPaymentAccept;
 import spharos.payment.axon.command.CancelPaymentCommand;
 import spharos.payment.axon.event.PaymentSaveEvent;
 import spharos.reservation.reservations.axon.command.CreateReservationCommand;
@@ -23,6 +25,8 @@ public class ReserSaga {
     @Autowired
     private transient CommandGateway commandGateway;
 
+    @Autowired
+    private TossPaymentAccept tossPaymentAccept;
 
     @StartSaga
     @SagaEventHandler(associationProperty = "orderId")
@@ -42,11 +46,11 @@ public class ReserSaga {
             @Override
             public void onResult(CommandMessage<? extends CreateReservationCommand> commandMessage, CommandResultMessage<?> commandResultMessage) {
                 if(commandResultMessage.isExceptional()){
+
                     // 보상 transaction
                     log.info("error message={}",commandMessage);
                     log.info("error message={}",commandResultMessage);
                     log.info("[보상Transaction] cancel order");
-                    //결제 취소
 
                     //db 결제 데이터 삭제
                     commandGateway.send(new CancelPaymentCommand(event.getOrderId(),event.getPaymentKey()));

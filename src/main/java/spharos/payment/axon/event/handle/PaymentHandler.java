@@ -40,6 +40,7 @@ public class PaymentHandler {
 
     @EventHandler
     public void cancel(PaymentCancelEvent event){
+        log.info("PaymentCancelEvent");
         Payment payment = paymentRepository.findByPaymentKey(event.getPaymentKey());
         paymentRepository.delete(payment);
     }
