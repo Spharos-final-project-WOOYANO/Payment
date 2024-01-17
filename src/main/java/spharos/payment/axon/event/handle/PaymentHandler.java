@@ -1,14 +1,19 @@
 package spharos.payment.axon.event.handle;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
+import spharos.payment.axon.command.CancelPaymentCommand;
+import spharos.payment.axon.event.PaymentCancelEvent;
 import spharos.payment.axon.event.PaymentSaveEvent;
 import spharos.payment.domain.Payment;
-import spharos.payment.domain.PaymentStatus;
-import spharos.payment.domain.PaymentType;
+import spharos.payment.domain.enumPackage.PaymentMethod;
+import spharos.payment.domain.enumPackage.PaymentStatus;
+
 import spharos.payment.infrastructure.PaymentRepository;
 
 @Component
@@ -21,18 +26,24 @@ public class PaymentHandler {
 
     @EventHandler
     public void on(PaymentSaveEvent event) {
-        log.info("event = " + event.getClientEmail());
-        log.info("event = " + event.getPaymentType());
-        log.info("event = " + event.getPaymentStatus());
-        PaymentType paymentType = PaymentType.fromCode(event.getPaymentType());
-        PaymentStatus paymentStatus = PaymentStatus.fromCode(event.getPaymentStatus());
 
-        Payment payment = Payment.createPayment(event.getClientEmail(), paymentType, event.getTotalAmount(),
-                event.getApprovedAt(), paymentStatus);
+        PaymentMethod paymentMethod = PaymentMethod.findByValue(event.getMethod());
+        PaymentStatus paymentStatus = PaymentStatus.findByValue(event.getStatus());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
+        LocalDateTime approvedAt = LocalDateTime.parse(event.getApprovedAt(), formatter);
+
+        Payment payment = Payment.createPayment(event.getClientEmail(), paymentMethod, event.getAmount(), paymentStatus,
+                event.getOrderId(),event.getPaymentKey(),event.getSuppliedAmount(), event.getVat(), approvedAt);
         paymentRepository.save(payment);
 
     }
 
+    @EventHandler
+    public void cancel(PaymentCancelEvent event){
+        log.info("PaymentCancelEvent");
+        Payment payment = paymentRepository.findByPaymentKey(event.getPaymentKey());
+        paymentRepository.delete(payment);
+    }
 
 }
 

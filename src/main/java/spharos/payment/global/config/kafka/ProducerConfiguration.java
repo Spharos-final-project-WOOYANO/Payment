@@ -16,7 +16,7 @@ import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 import spharos.payment.dto.PaymentResultResponse;
 
-@Configuration
+//@Configuration
 @EnableConfigurationProperties(KafkaProperties.class)
 public class ProducerConfiguration {
     private final KafkaProperties properties;
@@ -27,24 +27,13 @@ public class ProducerConfiguration {
     @Value("${spring.kafka.cluster.bootstrap.servers}")
     private String bootstrapServers;
 
-
     @Bean
     public Map<String, Object> stringProducerConfigs() {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,bootstrapServers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-
-        return props;
-    }
-
-
-    @Bean
-    public Map<String, Object> DTOProducerConfigs() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, "org.apache.kafka.clients.producer.RoundRobinPartitioner");
 
         return props;
     }
@@ -53,19 +42,13 @@ public class ProducerConfiguration {
     public ProducerFactory<String, String> stringProducerFactory() {
         return new DefaultKafkaProducerFactory<>(stringProducerConfigs());
     }
-    @Bean
-    public ProducerFactory<String, PaymentResultResponse> coffeeDTOProducerFactory() {
-        return new DefaultKafkaProducerFactory<>(DTOProducerConfigs());
-    }
+
 
     @Bean
     public KafkaTemplate<String, String> stringKafkaTemplate() {
         return new KafkaTemplate<>(stringProducerFactory());
     }
 
-    @Bean
-    public KafkaTemplate<String, PaymentResultResponse> coffeeDTOKafkaTemplate() {
-        return new KafkaTemplate<>(coffeeDTOProducerFactory());
-    }
+
 
 }

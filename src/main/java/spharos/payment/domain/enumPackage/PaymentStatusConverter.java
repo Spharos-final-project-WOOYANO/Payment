@@ -1,4 +1,4 @@
-package spharos.payment.domain;
+package spharos.payment.domain.enumPackage;
 
 import jakarta.persistence.AttributeConverter;
 import java.util.EnumSet;
@@ -16,7 +16,7 @@ public class PaymentStatusConverter implements AttributeConverter<PaymentStatus,
         return EnumSet.allOf(PaymentStatus.class).stream()
                 .filter(c -> c.getCode().equals(dbData))
                 .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("존재하지 않는 포인트 상태입니다."));
+                .orElseThrow(() -> new NoSuchElementException("존재하지 않는 결제 상태입니다."));
     }
 
 }

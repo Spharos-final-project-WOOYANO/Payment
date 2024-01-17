@@ -1,14 +1,16 @@
-package spharos.payment.domain;
+package spharos.payment.domain.enumPackage;
 
 
 import spharos.payment.global.config.CodeValue;
 
-
 public enum PaymentStatus implements CodeValue {
-    DONE("0","결제 완료"),
-    CANCEL("1","결제 취소"),
+    WAIT("0","결제대기"),
+    DONE("1","DONE"),
+    CANCEL("2","CANCELED"),
 
-    SETTLED("2","정산 완료");
+    EXPIRED("3","EXPIRED"),
+    ABORTED("4","ABORTED");
+
 
     private final String code;
     private final String value;
@@ -27,12 +29,12 @@ public enum PaymentStatus implements CodeValue {
     public String getValue() {
         return value;
     }
-    public static PaymentStatus fromCode(String code) {
+    public static PaymentStatus findByValue(String value) {
         for (PaymentStatus status : values()) {
-            if (status.code.equals(code)) {
+            if (status.value.equals(value)) {
                 return status;
             }
         }
-        throw new IllegalArgumentException("No enum constant for code: " + code);
+        throw new IllegalArgumentException("No enum constant for code: " + value);
     }
 }

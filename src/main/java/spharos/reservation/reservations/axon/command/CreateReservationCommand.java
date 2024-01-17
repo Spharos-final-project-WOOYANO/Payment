@@ -1,4 +1,4 @@
-package spharos.payment.axon.event;
+package spharos.reservation.reservations.axon.command;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,30 +7,24 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-public class PaymentSaveEvent {
+public class CreateReservationCommand {
 
+    @TargetAggregateIdentifier
     private String orderId;
-
     private int amount;
-    private String clientEmail;
-    private String paymentKey;
-    private int suppliedAmount;
-    private int vat;
-    private String status;
-    private String method;
-    private String approvedAt;
     private Long serviceId;
-    private Long workerId;
-
+    private String userEmail;
     private LocalDate reservationDate;
     private String request;
     private String address;
     private LocalTime serviceStart;
+    private Long workerId;
     private List<Long> reservationGoodsId;
-    private String userEmail;
+    private LocalDateTime approvedAt;
+
 }

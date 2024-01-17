@@ -24,23 +24,19 @@ public class PaymentListScheduler {
    private final PaymentServiceImpl paymentService;
    private final PaymentEventsProducer paymentEventsProducer;
 
-    //@Scheduled(cron = "0 0 2 * * ?")
+   @Scheduled(cron = "0 0 2 * * ?")
     public void sendMonthlyPaymentEvent() throws JsonProcessingException {
-        log.info("Sending Monthly Payment Event");
         List<PaymentResultResponse> paymentsList = paymentService.getPaymentsList();
-       /* Map<String, Long> clientEmailToMoney = new HashMap<>();
-        for(PaymentResultResponse paymentResultResponse : paymentsList) {
-            clientEmailToMoney.put(paymentResultResponse.getClientEmail(), paymentResultResponse.getTotalAmount());
-        }
-        log.info("clientEmailToMoney : {}", clientEmailToMoney);
-        paymentEventsProducer.sendLibraryEvent(clientEmailToMoney);*/
-        for (PaymentResultResponse PaymentResultResponse : paymentsList) {
-            log.info("PaymentResultResponse : {}", PaymentResultResponse.getClientEmail());
-            paymentEventsProducer.sendLibraryEvent(PaymentResultResponse);
-        }
-        log.info("paymentsList : {}", paymentsList);
-       // paymentEventsProducer.sendLibraryEvent(paymentsList);
-    }
+        paymentsList.stream()
+               .forEach(paymentResultResponse -> {
+                   try {
+                       paymentEventsProducer.sendLibraryEvent(paymentResultResponse);
+                   } catch (JsonProcessingException e) {
+                       throw new RuntimeException(e);
+                   }
+               });
+
+   }
 
 
 }

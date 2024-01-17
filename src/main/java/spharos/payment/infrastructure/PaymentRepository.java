@@ -16,6 +16,9 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     List<PaymentResultResponse> findByApprovedAtAndPaymentStatus(@Param("startDate") LocalDateTime startDate,
                                                                      @Param("endDate") LocalDateTime endDate);
 
+    @Query("SELECT p FROM Payment p WHERE p.paymentKey = :paymentKey")
+    Payment findByPaymentKey(@Param("paymentKey") String paymentKey);
+
 
 }
 
